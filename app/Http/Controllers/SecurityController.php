@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class SecurityController extends Controller
 {
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         // Validate the request data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        $validatedData = $request->validated();
 
         // Create a new user
-        $user = \App\Models\User::create([
+        $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
         ]);
 
+        $token = $user->createToken('Personal Access Token')->plainTextToken;
+
         // Return a response
-        return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
+        return response()->json([
+            'message' => 'inscription réussi', 'user' => $user, 'token' => $token], 201);
     }
 
     public function login(LoginRequest $request)
@@ -38,7 +38,7 @@ class SecurityController extends Controller
 
             // Return a response
             return response()->json([
-                'message' => 'User logged in successfully',
+                'message' => 'connecté avec succès',
                  'token' => $token], 200);
         }
 
