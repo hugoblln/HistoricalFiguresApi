@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 
 class SecurityController extends Controller
 {
@@ -26,13 +27,9 @@ class SecurityController extends Controller
         return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+        $validatedData = $request->validated();
 
         // Attempt to log the user in
         if (auth()->attempt($validatedData)) {
