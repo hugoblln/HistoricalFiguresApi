@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('figures', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('birth_name');
             $table->date('birth_date');
             $table->string('birth_place');
@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('portrait_url')->nullable();
             $table->string('biography')->nullable();
             $table->boolean('isVerified')->default(false);
-            $table->softDeletes();
             $table->timestamps();
         });
     }

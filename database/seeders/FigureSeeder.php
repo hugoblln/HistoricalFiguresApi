@@ -13,7 +13,6 @@ class FigureSeeder extends Seeder
      */
     public function run(): void
     {
-        Figure::factory()->count(5)->create();
-        Figure::factory()->trashed()->count(5)->create();;
+        Figure::factory()->count(10)->create();
     }
 }
