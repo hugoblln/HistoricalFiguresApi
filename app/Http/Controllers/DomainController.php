@@ -51,7 +51,7 @@ class DomainController extends Controller
     {
        $validatedData = $request->validated();
 
-       $domaine->update($validatedData);
+       $domain->update($validatedData);
 
        return response()->json([
            'message' => 'Domain updated successfully',
