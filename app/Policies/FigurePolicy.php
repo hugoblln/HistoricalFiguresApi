@@ -13,7 +13,7 @@ class FigurePolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->hasPermissionTo('viewAny figures');
     }
 
     /**
@@ -21,7 +21,7 @@ class FigurePolicy
      */
     public function view(User $user, Figure $figure): bool
     {
-        return false;
+        return $user->hasPermissionTo('view figures');
     }
 
     /**
@@ -29,7 +29,7 @@ class FigurePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasPermissionTo('create figures');
     }
 
     /**
@@ -37,23 +37,7 @@ class FigurePolicy
      */
     public function update(User $user, Figure $figure): bool
     {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Figure $figure): bool
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Figure $figure): bool
-    {
-        return false;
+        return $user->hasPermissionTo('update figures');
     }
 
     /**
@@ -61,6 +45,6 @@ class FigurePolicy
      */
     public function forceDelete(User $user, Figure $figure): bool
     {
-        return false;
+        return $user->hasPermissionTo('delete figures');
     }
 }
