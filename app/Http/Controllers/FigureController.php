@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Figure;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\FigureResource;
 use App\Http\Requests\FigureCreateRequest;
 use App\Http\Requests\FigureUpdateRequest;
@@ -14,6 +15,9 @@ class FigureController extends Controller
      */
     public function index()
     {
+
+        Gate::authorize('viewAny', Figure::class);
+
         $figures = Figure::all();
 
         return FigureResource::collection($figures);
@@ -24,6 +28,9 @@ class FigureController extends Controller
      */
     public function store(FigureCreateRequest $request)
     {
+
+        Gate::authorize('create', Figure::class);
+
         $validatedData = $request->validated();
 
         $figure = Figure::create($validatedData);
@@ -39,6 +46,8 @@ class FigureController extends Controller
      */
     public function show(Figure $figure)
     {
+        Gate::authorize('view', $figure);
+
         return new FigureResource($figure);
     }
 
@@ -47,6 +56,9 @@ class FigureController extends Controller
      */
     public function update(FigureUpdateRequest $request,Figure $figure)
     {
+
+        Gate::authorize('update', $figure);
+
         $validatedData = $request->validated();
 
         $figure->update($validatedData);
@@ -62,6 +74,8 @@ class FigureController extends Controller
      */
     public function destroy(Figure $figure)
     {  
+        Gate::authorize('delete', $figure);
+
         $figure->forceDelete();
 
         return response()->json([
