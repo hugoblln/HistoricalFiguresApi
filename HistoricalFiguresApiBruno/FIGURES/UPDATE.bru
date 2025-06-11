@@ -1,0 +1,17 @@
+meta {
+  name: UPDATE
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/figures/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "new name"
+  }
+}

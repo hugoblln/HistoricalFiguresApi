@@ -1,0 +1,29 @@
+meta {
+  name: STORE
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/api/figures
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Albert Einstein",
+    "birth_name": "Albert Einstein",
+    "birth_date": "1879-03-14",
+    "birth_place": "Ulm, Allemagne",
+    "death_date": "1955-04-18",
+    "death_place": "Princeton, États-Unis",
+    "nationality": "Allemande",
+    "short_description": "Physicien théoricien, père de la relativité.",
+    "gender": "male",
+    "portrait_url": "https://example.com/images/einstein.jpg",
+    "biography": "Albert Einstein était un physicien théoricien né en Allemagne, célèbre pour sa théorie de la relativité restreinte et générale.",
+    "isVerified": true
+  }
+  
+}
