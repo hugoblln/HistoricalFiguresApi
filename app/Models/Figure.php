@@ -24,10 +24,18 @@ class Figure extends Model
         'portrait_url',
         'biography',
         'isVerified',
+        'period_id',
     ];
+
+    protected $with = ['period', 'domains'];
 
     public function domains()
     {
         return $this->belongsToMany(Domain::class, 'domain_figure');
+    }
+
+    public function period()
+    {
+        return $this->belongsTo(Period::class);
     }
 }

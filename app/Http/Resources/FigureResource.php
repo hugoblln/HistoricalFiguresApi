@@ -31,6 +31,8 @@ class FigureResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
+            'domains' => DomainResource::collection($this->domains),
+            'period' => PeriodResource::make($this->period), // Use null if period is not set
         ];
     }
 }

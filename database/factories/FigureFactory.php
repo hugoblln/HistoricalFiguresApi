@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Period;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -29,6 +30,16 @@ class FigureFactory extends Factory
             'portrait_url' => fake()->imageUrl(),
             'biography' => fake()->text(200),
             'isVerified' => fake()->boolean(),
+            'period_id' => Period::inRandomOrder()->first()->id, // Assuming period_id is nullable
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function ($figure) {
+            // Attach random domains if needed
+            $domains = \App\Models\Domain::inRandomOrder()->take(rand(1, 3))->pluck('id');
+            $figure->domains()->attach($domains);
+        });
     }
 }

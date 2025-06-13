@@ -33,11 +33,18 @@ class FigureController extends Controller
 
         $validatedData = $request->validated();
 
-        $figure = Figure::create($validatedData);
+        $figureData = array_filter(array_diff_key($validatedData, array_flip(['domains'])));
+        $figure = Figure::create($figureData);
+
+
+        if (!empty($validatedData['domains']))
+        {
+           $figure->domains()->attach($validatedData['domains']);
+        }
 
         return \response()->json([
             'message' => 'Figure created successfully',
-            'figure' => new FigureResource($figure)
+            'figure' => new FigureResource($figure),
         ], 201);
     }
 
@@ -61,11 +68,19 @@ class FigureController extends Controller
 
         $validatedData = $request->validated();
 
-        $figure->update($validatedData);
+         $figureData = array_filter(array_diff_key($validatedData, array_flip(['domains'])));
+
+        $figure->update($figureData);
+
+            if (!empty($validatedData['domains']))
+        {
+           $figure->domains()->sync($validatedData['domains']);
+        }
+
 
         return \response()->json([
             'message' => 'Figure updated successfully',
-            'figure' => new FigureResource($figure)
+            'figure' => new FigureResource($figure),
         ]);
     }
 

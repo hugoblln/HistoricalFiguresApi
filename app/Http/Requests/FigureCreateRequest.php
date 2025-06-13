@@ -34,6 +34,9 @@ class FigureCreateRequest extends FormRequest
             'portrait_url' => 'nullable|url',
             'biography' => 'nullable|string',
             'isVerified' => 'boolean',
+            'domains' => 'nullable|array',
+            'domains.*' => 'exists:domains,id',
+            'period_id' => 'required|exists:periods,id', 
         ];
     }
 }
