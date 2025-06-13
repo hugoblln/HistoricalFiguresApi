@@ -16,7 +16,7 @@ return new class extends Migration
 
         $permissions = [
             'create figures',
-            'edit figures',
+            'update figures',
             'delete figures',
             'view figures',
             'viewAny figures',
@@ -37,7 +37,7 @@ return new class extends Migration
             $adminRole->givePermissionTo($permissions);
             $editorRole->givePermissionTo([
                 'create figures',
-                'edit figures',
+                'update figures',
                 'delete figures',
                 'view figures',
                 'viewAny figures',
